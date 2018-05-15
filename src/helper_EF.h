@@ -8,12 +8,12 @@
  Sum i=1 to n of Sum j=1 to k_i-1
  x_i and g_i terms can be pulled out
  */
-#ifndef __helper_h__
-#define __helper_h__
+#ifndef __helper_ef_h__
+#define __helper_ef_h__
 
 #include <math.h>
 
-inline Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
+/*static Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
                                   const VectorXd &xitheta,
                                   const VectorXd &kivec, const VectorXd &deltavec) {
   Eigen::MatrixXd sumterms(xitheta.size(), gammavec.size());
@@ -39,7 +39,45 @@ inline Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
 }
 
 // delta_i * fraction of exp()s
-inline VectorXd deltaifrac(const VectorXd &gammavecNI, const VectorXd &xitheta,
+static VectorXd deltaifrac(const VectorXd &gammavecNI, const VectorXd &xitheta,
+                           const VectorXd &kivec, const VectorXd &deltavec) {
+  // add INFINITY as the last element of gammavec
+  Eigen::VectorXd gammavec(gammavecNI.size() + 1);
+  gammavec << gammavecNI;
+  gammavec(gammavecNI.size()) = INFINITY;
+
+  // get the last gamma value for each sample.
+  Eigen::VectorXd gammai(kivec.size());
+  for (int i = 0; i < kivec.size(); i++)
+    gammai(i) = gammavec(kivec(i) - 1);
+
+  // get the exp() terms
+  Eigen::VectorXd ex(kivec.size());
+  Eigen::VectorXd exex(kivec.size());
+  Eigen::VectorXd out(kivec.size());
+  for (int i = 0; i < kivec.size(); i++) {
+		if(deltavec(i) == 0)
+		{
+			out(i) = 0;
+			continue;
+		}
+    if(gammai(i) == INFINITY||gammai(i) == -INFINITY)
+    {
+      out(i) = 0;
+      continue;
+    }
+    ex(i) = exp(gammai(i) + xitheta(i));
+    exex(i) = exp(-ex(i));
+    //if (deltavec(i) == 1)
+      out(i) = exex(i) * ex(i) / (1 - exex(i));
+    //else
+      //out(i) = 0;
+  }
+  return out;
+}
+*/
+// delta_i * fraction of exp()s for Eff score
+inline VectorXd deltaifrac_EF(const VectorXd &gammavecNI, const VectorXd &gib, const VectorXd &xitheta,
                            const VectorXd &kivec, const VectorXd &deltavec) {
   // add INFINITY as the last element of gammavec
   Eigen::VectorXd gammavec(gammavecNI.size() + 1);
@@ -69,45 +107,6 @@ inline VectorXd deltaifrac(const VectorXd &gammavecNI, const VectorXd &xitheta,
       out(i) = 0;
       continue;
     }
-    ex(i) = exp(gammai(i) + xitheta(i));
-    exex(i) = exp(-ex(i));
-    //if (deltavec(i) == 1)
-      out(i) = exex(i) * ex(i) / (1 - exex(i));
-    //else
-      //out(i) = 0;
-  }
-  return out;
-}
-
-// delta_i * fraction of exp()s for Eff score
-/*
-static VectorXd deltaifrac_EF(const VectorXd &gammavecNI, const VectorXd &gib, const VectorXd &xitheta,
-                           const VectorXd &kivec, const VectorXd &deltavec) {
-  // add INFINITY as the last element of gammavec
-  Eigen::VectorXd gammavec(gammavecNI.size() + 1);
-  gammavec << gammavecNI;
-  gammavec(gammavecNI.size()) = INFINITY;
-
-  // get the last gamma value for each sample.
-  Eigen::VectorXd gammai(kivec.size());
-  for (int i = 0; i < kivec.size(); i++)
-    gammai(i) = gammavec(kivec(i) - 1);
-
-  // get the exp() terms
-  Eigen::VectorXd ex(kivec.size());
-  Eigen::VectorXd exex(kivec.size());
-  Eigen::VectorXd out(kivec.size());
-  for (int i = 0; i < kivec.size(); i++) {
-		if(deltavec(i) == 0)
-		{
-			out(i) = 0;
-			continue;
-		}
-    if(gammai(i) == INFINITY||gammai(i) == -INFINITY)
-    {
-      out(i) = 0;
-      continue;
-    }
 
     ex(i) = exp(gammai(i) + gib(i)+ xitheta(i));
     if (deltavec(i) == 1)
@@ -121,7 +120,7 @@ static VectorXd deltaifrac_EF(const VectorXd &gammavecNI, const VectorXd &gib, c
 
 
 
-static Eigen::MatrixXd sumKim1mat_EF(const VectorXd &gammavec,const VectorXd &gib,
+inline Eigen::MatrixXd sumKim1mat_EF(const VectorXd &gammavec,const VectorXd &gib,
                                   const VectorXd &xitheta,
                                   const VectorXd &kivec, const VectorXd &deltavec) {
   Eigen::MatrixXd sumterms(xitheta.size(), gammavec.size());
@@ -148,7 +147,7 @@ static Eigen::MatrixXd sumKim1mat_EF(const VectorXd &gammavec,const VectorXd &gi
 }
 
 
-*/
+
 
 
 #endif

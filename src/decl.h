@@ -46,8 +46,8 @@ typedef const Rule cRule;
 #define TYPEDEFREGION \
   typedef struct region { \
     count div; \
-    Result result[NCOMP]; \
-    Bounds bounds[NDIM]; \
+    Result result[13]; \
+    Bounds bounds[4]; \
   } Region
 
 

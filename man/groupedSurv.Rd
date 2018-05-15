@@ -48,7 +48,7 @@ beta <- 0.4
 # covariate parameters
 theta <- c(0.2, 0.2)
 
-# simulate variable of interest associated with outcome
+# variable of interest associated with outcome
 MAF <- 0.05
 x <- matrix(rbinom(n, 2, MAF), ncol = 1)
 

@@ -13,8 +13,8 @@ enum { nrules = 5 };
 #define TYPEDEFSET \
   typedef struct { \
     count n; \
-    real weight[nrules], scale[nrules], norm[nrules]; \
-    real gen[NDIM]; \
+    real weight[5], scale[5], norm[5]; \
+    real gen[4]; \
   } Set
 
 /*********************************************************************/
@@ -76,7 +76,8 @@ static void Rule13Alloc(Rule *rule)
   count n, r;
   Set *first, *last, *s, *t;
 
-  Alloc(first, nsets);
+  Alloc(first, nsets)
+  ;
   Clear(first, nsets);
 
   last = first;
@@ -224,7 +225,8 @@ static void Rule11Alloc(Rule *rule)
   count n, r;
   Set *first, *last, *s, *t;
 
-  Alloc(first, nsets);
+  Alloc(first, nsets)
+  ;
   Clear(first, nsets);
 
   last = first;
@@ -363,7 +365,8 @@ static void Rule9Alloc(Rule *rule)
   count dim, n, r;
   Set *first, *last, *s, *t;
 
-  Alloc(first, nsets);
+  Alloc(first, nsets)
+  ;
   Clear(first, nsets);
 
   last = first;
@@ -496,7 +499,8 @@ static void Rule7Alloc(Rule *rule)
   count dim, n, r;
   Set *first, *last, *s, *t;
 
-  Alloc(first, nsets);
+  Alloc(first, nsets)
+  ;
   Clear(first, nsets);
 
   last = first;

@@ -1,0 +1,5 @@
+version v 1.0.1 (Release date: 2018-05-15 
+========= 
+* Fixed bugs causing errors on mac OSX and clang compiler
+* Revise package description
+

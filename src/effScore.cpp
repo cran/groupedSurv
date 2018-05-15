@@ -44,7 +44,6 @@ List effScore(double beta, Rcpp::NumericVector Params, Rcpp::NumericMatrix G,
   #ifdef _OPENMP
   #pragma omp parallel for 
   #endif
-
    
   for(int i = 0; i < g.cols(); i++)
   {  

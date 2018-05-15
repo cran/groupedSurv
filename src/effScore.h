@@ -5,7 +5,7 @@
 /* SNP                       */
 /*****************************/
 
-#include "helper_NF.h"
+#include "helper_EF.h"
 #include <cmath>
 #include <math.h> 
 static double effScore_NF_S(double beta, 
@@ -106,14 +106,15 @@ static double effScore_NF_S(double beta,
  
   // put Efficent score together
   Eigen::MatrixXd Var(params.size(), params.size());
-  
-	Var.block(0, 0, Sgammai.cols(), Sgammai.cols()) = Egamma_gamma;
+  Var.fill(0);
+  Var.block(0, 0, Sgammai.cols(), Sgammai.cols()) = Egamma_gamma;
   Var.block(0, Sgammai.cols(), Sgammai.cols(), Sthetai.cols()) =  Etheta_gamma.transpose();
   Var.block(Sgammai.cols(), 0, Sthetai.cols(), Sgammai.cols()) = Etheta_gamma;
   Var.block(Sgammai.cols(), Sgammai.cols(), Sthetai.cols(), Sthetai.cols()) = Etheta_theta;
  
   // compute score
   Eigen::MatrixXd Sgamma_theta(n, params.size());
+  Sgamma_theta.fill(0);
   Sgamma_theta.block(0, 0, n, Sgammai.cols()) = Sgammai;
   Sgamma_theta.block(0, Sgammai.cols(), n, Sthetai.cols()) = Sthetai;
   Eigen::VectorXd Ui(n);
@@ -123,7 +124,7 @@ static double effScore_NF_S(double beta,
   
   for(int i = 0; i < n; i++)
   { 
- 		Ui(i) = Sbetai(i)  - Cov.transpose()*VarInverse*(Sgamma_theta.row(i).transpose());
+ 	Ui(i) = Sbetai(i)  - Cov.transpose()*VarInverse*(Sgamma_theta.row(i).transpose());
     if(isinf(Ui(i)) || isnan(Ui(i)))
 				Ui(i) = 0;
 	} 
@@ -143,7 +144,7 @@ static double effScore_NF_S(double beta,
   }
   
   // return statistics 
-	double stat = Ui.sum()*Ui.sum()/(Ui.cwiseProduct(Ui)).sum();
+  double stat = Ui.sum()*Ui.sum()/(Ui.cwiseProduct(Ui)).sum();
   if(isnan(stat))
     stat = 0;
   return stat;

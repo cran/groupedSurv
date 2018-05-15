@@ -53,12 +53,14 @@ static int Integrate(creal epsrel, creal epsabs,
     else Rule9Alloc(&rule);
   }
 
-  Alloc(rule.x, rule.n*(ndim_ + ncomp_));
+  Alloc(rule.x, rule.n*(ndim_ + ncomp_))
+  ;
   rule.f = rule.x + rule.n*ndim_;
 
   mineval = IMax(mineval, rule.n + 1);
 
-  Alloc(cur, 1);
+  Alloc(cur, 1)
+  ;
   cur->next = NULL;
   ncur = 1;
 
@@ -138,7 +140,8 @@ static int Integrate(creal epsrel, creal epsabs,
 
     if( ncur == POOLSIZE ) {
       Pool *prev = cur;
-      Alloc(cur, 1);
+      Alloc(cur, 1)
+      ;
       cur->next = prev;
       ncur = 0;
     }

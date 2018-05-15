@@ -65,7 +65,6 @@ ctime <- runif(n, 0, cmax)
 delta <- stime < ctime
 otime <- pmin(stime, ctime)
 
-
 # number of observation times
 ntps <- 5
 

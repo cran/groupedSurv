@@ -133,6 +133,7 @@ res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
 res$stat
 
 ## ----inputPara3---------------------------------------------------------------
+rm(list=ls())
 set.seed(111)
 m <- 10
 
@@ -173,8 +174,4 @@ betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
 
 ## ----sessinfo, echo=FALSE, include=TRUE, results='asis'-----------------------
 toLatex(sessionInfo(), locale=FALSE)
-
-## ----times, echo=FALSE, include=TRUE------------------------------------------
-print(paste("Start Time",stdt))
-print(paste("End Time  ",date()))
 

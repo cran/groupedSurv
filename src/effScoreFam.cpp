@@ -7,7 +7,7 @@
 #include "integrand.h"
 #include "famSize.h"
 #include <RcppEigen.h>
-#include <gsl/gsl_integration.h>
+//#include <gsl/gsl_integration.h>
 #include "fsigma.h"
 #include "falpha.h"
 #include "fbeta.h"
@@ -37,7 +37,8 @@ List effScoreFam(double beta, double sigma2,
   //Create two set of variables that will be used in the 
   //integratation part for both likelihood and its partial derivatives
   //with respect to beta.
-  int comp, nregions, neval, fail;
+  //int comp,
+  int nregions, neval, fail;
   double integral[NCOMP], error[NCOMP], prob[NCOMP];
 
   // Convert R input objects into c++ objects.
@@ -74,7 +75,7 @@ List effScoreFam(double beta, double sigma2,
 
   // Create some verctors to store the results.
   double l_i = 0;
-  double pdevm[NCOMP]={0}; 
+  //double pdevm[NCOMP]={0}; 
   
 
   // U_Eta vector

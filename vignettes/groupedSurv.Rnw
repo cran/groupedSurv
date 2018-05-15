@@ -42,7 +42,7 @@ stdt<-date()
 	\title{\pkgname}
 	\subtitle{Efficient Estimation of Grouped Survival Models Using the
 	Exact Likelihood Function}
-	\date{2018-05-10}
+	\date{2018-05-15}
 	\titlepage
 \end{frame}
 
@@ -53,10 +53,10 @@ stdt<-date()
 	\item This document provides examples demonstrating how to use the
 		\pkgname{} package to estimate the baseline survival rate, covariate, and fixed effect parameters, 
 		and compute the efficient score statistic, as well as gene-level statistics for grouped survival models. 
-			Additional functions can 
-			analyze grouped time-to-event data accounting for family structure of
+  \item Additional functions can analyze grouped time-to-event data accounting for family structure of
 			related individuals (e.g., trios), and provide estimates of frailty
-			variance.
+			variance. Note, however, that the current implementation of the frailty model is sensitive 
+			to departures from model assumptions, and should be considered experimental.
     \item The major algorithms in this package are written in \texttt{C++},
       which is ported to \R{} by \Rcpp{}, to facilitate fast computation. 
   \end{itemize}
@@ -70,7 +70,7 @@ stdt<-date()
     corresponding samples, and columns corresponding to variables of interest and covariates for the sample. 
     \item Support is also provided for GenABEL \texttt{gwaa.data} objects as alternative inputs.
   \end{itemize}
-  Data with family structure~\cite{ripatti2004}
+  Data with family structure~\cite{ripatti2004} [Experimental]
   \begin{itemize}
 	\item The input \df{} is assumed to be organized such that records for each
       family occur consecutively, and that records for offspring precede those for
@@ -96,7 +96,7 @@ geneStat(x, Z=NULL, GenABEL.data=NULL, alpha, theta=NULL,
          gtime, delta, beta=0, nCores=1, 
          FUN=function(Uij, weight){sum((colSums(Uij)*weight)^2)}, geneSet)
 @
-Functions for data with family structure\\
+Functions for data with family structure [Experimental]\\
 <<with, eval=FALSE>>=
 alphaEstFam(gtime, delta) 
 betaEstFam(x, fam_group, fam_role, alpha, var, gtime, delta, lower, upper) 
@@ -360,6 +360,7 @@ res$stat
 \scriptsize
 Generate grouped survival data:
 <<inputPara3>>=
+rm(list=ls())
 set.seed(111)
 m <- 10
 
@@ -471,10 +472,10 @@ betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
 <<sessinfo, echo=FALSE, include=TRUE, results='asis'>>=
 toLatex(sessionInfo(), locale=FALSE)
 @ 
-<<times, echo=FALSE, include=TRUE>>=
-print(paste("Start Time",stdt))
-print(paste("End Time  ",date()))
-@ 
+%<<times, echo=FALSE, include=TRUE>>=
+%print(paste("Start Time",stdt))
+%print(paste("End Time  ",date()))
+%@ 
 \end{frame}
 
 \end{document}

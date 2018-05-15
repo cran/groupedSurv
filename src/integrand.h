@@ -84,7 +84,7 @@ static void Integrand(const int *ndim, const double xx[],
 	double usq[4]; 			//(2x-1)^2
 
 	double prod_l_i 		= 1.0;
-	double part_l_i_sum 	= 0.0;
+	//double part_l_i_sum 	= 0.0;
 	
 	// precompute some qualities to save repeating calculating in
 	double exp_part 		= 0.0;

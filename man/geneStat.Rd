@@ -38,20 +38,21 @@
 
 \examples{
 # Generate dummy data
-set.seed(545)
-n <- 50
-
-# covariate data
-z1 <- rnorm(n)
-z2 <- rbinom(n, 1, 0.5) - 0.5
-Z  <- cbind(z1, z2)
+rm(list=ls())
+set.seed(111)
+n <- 1000
 
 # covariate parameters
 theta <- c(0.2, 0.2)
 
+# covariate data (centered at 0)
+z1 <- rnorm(n)
+z2 <- rbinom(n, 1, 0.5) - 0.5
+Z <- matrix(cbind(z1, z2), ncol = 2)
+
 # continuous survival time
 lam0 <- 1
-cmax <- 2
+cmax <- 3
 lami <- lam0 * exp(Z[,1]*theta[1]+Z[,2]*theta[2])
 stime <- rexp(n, lami)
 ctime <- runif(n, 0, cmax)
@@ -65,50 +66,59 @@ ntps <- 5
 r <- ntps + 1
 
 # last observation time
-maxbreakq <- 0.9
+maxbreakq <- 0.85
 maxbreak <- qexp(maxbreakq, lam0)
 
-# grouped failure times
+# grouped survival times
 breaks <- (1:ntps) * (maxbreak/ntps)
-gtime  <- findInterval(otime, breaks) + 1
-
-# censor any events after last observation time
+gtime <- findInterval(otime, breaks) + 1
 delta[gtime == r] <- FALSE
 dctime <- findInterval(ctime, breaks) + 1
 delta[gtime == dctime] <- FALSE
-gtime[which(gtime==r)] <- Inf
-start <- c(0, breaks[-ntps])
-end   <- breaks
-alpha <- exp(lam0 * (start - end))
+delta <- as.numeric(delta)
+gtime[which(gtime == r)] <- Inf
+
+# estimate nuisance parameters
+thetaest <- thetaEst(Z, gtime, delta)
 
 # SNP and gene information
 geneInfo <- data.frame(gene=c("BRCA1","BRCA2"), chr=c(17,13),
-                         start=c(41196312, 32889611), end=c(41277500, 32973805),
-                         stringsAsFactors=FALSE)
-snpInfo <- data.frame(chr=c(17,17,13,13), pos=c(41211653,41213996,32890026,32890572),
-                        rsid=c("rs8176273","rs8176265","rs9562605","rs1799943"),
-                        stringsAsFactors=FALSE)
-                        
+                       start=c(41196312, 32889611), end=c(41277500, 32973805),
+                       stringsAsFactors=FALSE)
+snpInfo <- data.frame(chr=c(17,17,13,13),
+                      pos=c(41211653,41213996,32890026,32890572),
+                      rsid=c("rs8176273","rs8176265","rs9562605","rs1799943"),
+                      stringsAsFactors=FALSE)
+
 # use snplist package to create gene sets
 library(snplist)
 setGeneTable(geneInfo)
 setSNPTable(snpInfo)
 geneset <- makeGeneSet()
-geneset
-
-# dummy weights for the SNPs in the gene sets
-for(i in seq_len(length(geneset))){
-  weight <- rep(1, length(geneset[[i]]))/length(geneset[[i]])
-  geneset[[i]] <- list(geneset[[i]], weight)	
-}
 
 # simulate sample values for SNPs
 G <- matrix(rbinom(n*nrow(snpInfo), 2, 0.5), ncol=nrow(snpInfo))
 colnames(G) <- snpInfo$rsid
 
-# compute gene-level statistics based on the default SKAT function
-res <- geneStat(x=G, Z=Z, alpha=alpha, theta=theta, gtime=gtime, delta=delta,
-                geneSet=geneset)
-res
+# dummy weights for the SNPs in the gene sets
+for(i in seq_len(length(geneset))){
+    weight <- rep(1, length(geneset[[i]]))
+    geneset[[i]] <- list(geneset[[i]], weight)
+
 }
+
+# compute gene-level statistics based on the default SKAT function
+res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
+                gtime=gtime, delta=delta, geneSet=geneset, beta=0, nCores=1)
+res$stat
+}
+
+
+
+
+
+
+
+
+
 
