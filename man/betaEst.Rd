@@ -13,7 +13,7 @@
 
 \arguments{
   \item{x}{Vector of numeric variable of interest for each sample.}
-  \item{Z}{Optional \code{data.frame} of numeric covariate values for each sample.}
+  \item{Z}{Optional \code{data.frame} or \code{matrix} of numeric covariate values for each sample.}
   \item{alpha}{Vector of baseline survival rates for each time interval.}
   \item{theta}{Optional vector of estimated nuisance parameters for the covariates.}
   \item{gtime}{Vector of observed survival times for each sample.}

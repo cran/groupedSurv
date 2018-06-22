@@ -11,9 +11,12 @@
 	}
   
 	if(class(x) != "matrix"){
-			x <- as.matrix(x, ncol=1)
+			x <- as.matrix(x, ncol=ncol(x))
 	}
   
+	if(class(Z) != "matrix"){
+			Z <- as.matrix(Z,ncol=ncol(Z))
+	}
 
   # transfer alphas into gammas
   alpha[which(alpha[1:ntps] < 10^-8)] <- 10^-8
@@ -60,7 +63,10 @@ groupedSurv <- function(x, Z=NULL, GenABEL.data=NULL, alpha, theta=NULL,
       ntps <- nlevels(as.factor(gtime)) - 1
     else
       ntps <- nlevels(as.factor(gtime))
-
+    
+    if(class(Z) == "character")
+      Z <- GenABEL.data@phdata[,Z]
+   
 	  .effScore(x, Z, GenABEL.data, alpha, theta,
 							      gtime, delta, beta, ntps, nCores, reScore)
 }

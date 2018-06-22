@@ -12,7 +12,7 @@
 #define __helper_ef_h__
 
 #include <math.h>
-
+#include <limits>
 /*static Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
                                   const VectorXd &xitheta,
                                   const VectorXd &kivec, const VectorXd &deltavec) {
@@ -79,10 +79,11 @@ static VectorXd deltaifrac(const VectorXd &gammavecNI, const VectorXd &xitheta,
 // delta_i * fraction of exp()s for Eff score
 inline VectorXd deltaifrac_EF(const VectorXd &gammavecNI, const VectorXd &gib, const VectorXd &xitheta,
                            const VectorXd &kivec, const VectorXd &deltavec) {
-  // add INFINITY as the last element of gammavec
+  double inf = std::numeric_limits<double>::infinity();
+    // add INFINITY as the last element of gammavec
   Eigen::VectorXd gammavec(gammavecNI.size() + 1);
   gammavec << gammavecNI;
-  gammavec(gammavecNI.size()) = INFINITY;
+  gammavec(gammavecNI.size()) = inf;
 
   // get the last gamma value for each sample.
   Eigen::VectorXd gammai(kivec.size());
@@ -102,7 +103,7 @@ inline VectorXd deltaifrac_EF(const VectorXd &gammavecNI, const VectorXd &gib, c
 			out(i) = 0;
 			continue;
 		}
-    if(gammai(i) == INFINITY||gammai(i) == -INFINITY)
+    if(gammai(i) == inf||gammai(i) == -inf)
     {
       out(i) = 0;
       continue;
@@ -128,16 +129,16 @@ inline Eigen::MatrixXd sumKim1mat_EF(const VectorXd &gammavec,const VectorXd &gi
   Eigen::VectorXd kim1(kivec.size());
   kim1.fill(-1);
   kim1 = kim1 + kivec;
-
+  double inf = std::numeric_limits<double>::infinity();
   for (int i = 0; i < kivec.size(); i++)
   {
-    if(kivec(i) == INFINITY && deltavec(i) == 0) // adjust for c++ index from zero
+    if(kivec(i) == inf && deltavec(i) == 0) // adjust for c++ index from zero
        kim1(i) = gammavec.size();
   }
   
   for (int i = 0; i < xitheta.size(); i++) {
     for (int j = 0; j < gammavec.size(); j++) {
-      if (j >= kim1(i) || gammavec(j) == -INFINITY || gammavec(j) == INFINITY)
+      if (j >= kim1(i) || gammavec(j) == -inf || gammavec(j) == inf)
         sumterms(i, j) = 0;
       else
         sumterms(i, j) = exp(xitheta(i) + gib(i) + gammavec(j));

@@ -42,7 +42,7 @@ stdt<-date()
 	\title{\pkgname}
 	\subtitle{Efficient Estimation of Grouped Survival Models Using the
 	Exact Likelihood Function}
-	\date{2018-05-15}
+	\date{2018-06-20}
 	\titlepage
 \end{frame}
 
@@ -275,7 +275,7 @@ betaest
 \begin{frame}[fragile]{Examples of alternative data sources}
 \scriptsize
 One can alternatively input SNP information directly from a GenABEL object. 
-<<expa3, eval=TRUE, message=FALSE>>=
+<<expa3, eval=FALSE, message=FALSE>>=
 library(GenABEL)
 data(srdta)
 GenABELdat <- srdta[1:n]
@@ -283,15 +283,24 @@ GenABELdat <- srdta[1:n]
 eff <- groupedSurv(x=c(GenABELdat@gtdata@snpnames[1:200]), Z=Z,
                    GenABEL.data=GenABELdat, alpha=thetaest$alpha, theta=thetaest$theta,
                    gtime=gtime, delta=delta, beta=0, nCores=1)
-head(eff)
 @
 Or, genotype dosage data can be imported from a VCF file using the \texttt{BEDMatrix} package (after converting to a .bed file using PLINK~\cite{plink}).
+Genotype dosage data can also be directly extracted from VCF file using \texttt{readVcf} and \texttt{assay} pacakge~\cite{VariantAnnotation}.
 <<bedtoSNPmatrix, eval=FALSE>>=
 library(BEDMatrix)
 path <- system.file("extdata", "example.bed", package = "BEDMatrix")
 m <- BEDMatrix(path)
 # Extract genotypes for the specified variants
 g <- m[, c("snp0_A", "snp1_C", "snp2_G")]
+
+system("wget ftp://share.sph.umich.edu/minimac3/DosageConvertor/DosageConvertor.v1.0.4.tar.gz")
+system("tar -xzvf DosageConvertor.v1.0.4.tar.gz")
+library(VariantAnnotation)
+exampleVcfFile <- "./DosageConvertor/test/TestDataImputedVCF.dose.vcf.gz"
+myvcf <- readVcf(exampleVcfFile, "hg19")
+dosedat <- assay(myvcf,"DS")
+rownames(dosedat) <- paste0("NA_",1:nrow(dosedat))
+g <- dosedat
 @
 \end{frame}
 
@@ -461,6 +470,13 @@ betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
   PLINK: a toolset for whole-genome association and population-based linkage analysis. 
   \emph{American Journal of Human Genetics}, 
   81.
+
+\bibitem{vcfR}
+  Knaus, BJ., Gr{\"u}nwald, NJ 
+  (20017).
+  VCFR: a package to manipulate and visualize variant call format data in T
+  \emph{Molecular Ecology Resources}, 
+  17:44-53.
 % \setbeamertemplate{bibliography item}[triangle]
 \end{thebibliography}
 

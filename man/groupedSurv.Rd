@@ -13,7 +13,7 @@
 }
 
 \arguments{
-  \item{x}{Vector or \code{data.frame} of numeric variables of interest for each sample. Alternatively, if a \code{gwaa.data} object is given for \code{GenABEL.data}, this argument may be a vector of strings corresponding to column names in \code{GenABEL.data@gtdata} to use as variables of interest.}  
+  \item{x}{Vector or \code{data.frame} of numeric variables of interest for each sample. Alternatively, if a \code{gwaa.data} object is given for \code{GenABEL.data}, this argument may be a vector of strings corresponding to column names in \code{GenABEL.data@gtdata} to use as variables of interest, set \code{NULL} will use all the variables in \code{GenABEL.data@gtdata} as variables of interest.}  
   \item{Z}{Optional \code{data.frame} of numeric covariate values for each sample. Alternatively, if a \code{gwaa.data} object is given for \code{GenABEL.data}, this argument may be a vector of strings corresponding to column names in \code{GenABEL.data@phdata} to use as covariates.}
   \item{GenABEL.data}{Optional \code{gwaa.data} object.}
   \item{alpha}{Vector of baseline survival rates for each time interval.}

@@ -12,7 +12,7 @@
 }
 
 \arguments{
-  \item{Z}{Optional \code{data.frame} of numeric covariate values for each sample.}
+  \item{Z}{Optional \code{data.frame} or \code{matrix} of numeric covariate values for each sample.}
   \item{gtime}{Vector of observed survival times for each sample.}
   \item{delta}{Vector of event indicators for each sample: 1 indicates observed event, 0 indicates censored.}
   \item{method}{String indicating optimization method, passed to \code{stats::optim}. Supports \code{"BFGS"} and \code{"CG"}. Default is \code{"BFGS"}.}

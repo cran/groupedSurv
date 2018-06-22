@@ -22,7 +22,8 @@ thetaEst <- function(Z=NULL, gtime, delta, method="BFGS")
   thetaIG <- runif(ncol(Z), 0, 1)
   # cat('thetaTG: ', thetaIG, '\n')
   ThetaIG <- c(alphaIG, thetaIG)
-  
+
+  Z <- as.matrix(Z,ncol=ncol(Z))
   Est <- optim(par = ThetaIG, fn = .logLike_NF, gr = .grad_NF, Xmatrix = Z, Kivec = gtime, 
     Deltavec = delta, ntps = ntps, method = method, control = list(fnscale = -1))$par
   ## testing other methods for optim Est <- optim(par = ThetaIG, fn = .logLike_NF,
