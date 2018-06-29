@@ -42,7 +42,7 @@ stdt<-date()
 	\title{\pkgname}
 	\subtitle{Efficient Estimation of Grouped Survival Models Using the
 	Exact Likelihood Function}
-	\date{2018-06-20}
+	\date{2018-06-28}
 	\titlepage
 \end{frame}
 
@@ -66,13 +66,13 @@ stdt<-date()
 % \scriptsize
   Data without family structure~\cite{prentice1978}
   \begin{itemize}
-    \item The input data is assumed to be organized as a \df{}, with rows 
-    corresponding samples, and columns corresponding to variables of interest and covariates for the sample. 
+    \item The input data is assumed to be organized as a \texttt{matrix} or \df{}, with rows 
+    corresponding samples, and columns corresponding to variables of interest (and covariates) for the sample. 
     \item Support is also provided for GenABEL \texttt{gwaa.data} objects as alternative inputs.
   \end{itemize}
   Data with family structure~\cite{ripatti2004} [Experimental]
   \begin{itemize}
-	\item The input \df{} is assumed to be organized such that records for each
+	\item The input \texttt{matrix} or \df{} is assumed to be organized such that records for each
       family occur consecutively, and that records for offspring precede those for
       parents. The variance matrix for the random effects is assumed to be of the
       form \texttt{var}$*$\texttt{K}, where \texttt{K} is a matrix of kinship
@@ -116,22 +116,24 @@ under the null hypothesis, \ie{} that the variable of interest has no effect on
 the time to event. The \rfunc{thetaEst} function requires a vector of grouped survival
 times, \texttt{gtime} and a vector of event indicators, \texttt{delta}, as
 arguments. If the model includes covariates, these values, in the form of a
-matrix, \texttt{Z}, are required as well. Optionally, users can specify the
+\texttt{matrix} or \df{}, \texttt{Z}, are required as well. Optionally, users can specify the
 method of optimization (\texttt{method} = ``BFGS'' or ``CG'') which is passed to
 the \texttt{optim} function in \Cpp{}.\\
 \vspace{2mm}
 The \rfunc{groupedSurv} function is the core of the \pkgname{} package. As inputs,
-it requires a matrix of variables to be tested for association with the outcome,
+it requires a \texttt{matrix} or \df{} of variables to be tested for association with the outcome,
 \texttt{x}, a vector of grouped survival times and a vector of event indicators
 (\texttt{gtime} and \texttt{delta}), as well as estimates for the nuisance
 parameters (\texttt{alpha} and \texttt{theta}). Note that since \rfunc{thetaEst}
 estimates the nuisance parameters under the null hypothesis, these estimates can
 be reused to calculate the efficient score statistic for any number of variables
-of interest. If the model includes covariates, the \texttt{Z} matrix is also
-required. In the context of GWAS, covariates and variables of interest can be
-provided as part of a GenABEL object (\texttt{GenABEL.data}), with the arguments
+of interest. If the model includes covariates, the \texttt{Z} \texttt{matrix} or \df{} is also
+required. 
+\vspace{2mm}
+In the context of GWAS, covariates and variables of interest can be
+provided as part of a GenABEL object (\texttt{gwaa.data}), with the arguments
 \texttt{x} and \texttt{Z} instead used to specify to the columns of
-\texttt{GenABEL.data} to be included in the analyses.\\
+\texttt{gwaa.data} to be included in the analyses.\\
 \end{frame}
 
 \begin{frame}[fragile]{Usage overview}
@@ -261,7 +263,7 @@ thetaest
 Compute the efficient score under the null hypothesis based on the estimated $\theta$ :\\
 <<expa2, eval=TRUE>>=
 eff <- groupedSurv(x=xMore, Z=Z,  alpha=thetaest$alpha, theta=thetaest$theta, 
-                gtime=gtime, delta=delta, beta=0, nCores=1)
+                   gtime=gtime, delta=delta, beta=0, nCores=1)
 head(eff)
 @
 One may wish to estimate $\beta$ for variables of interest found to be associated with the outcome:\\
@@ -272,6 +274,8 @@ betaest
 @
 \end{frame}
 
+
+\section{Examples of alternative data sources}
 \begin{frame}[fragile]{Examples of alternative data sources}
 \scriptsize
 One can alternatively input SNP information directly from a GenABEL object. 
@@ -279,28 +283,28 @@ One can alternatively input SNP information directly from a GenABEL object.
 library(GenABEL)
 data(srdta)
 GenABELdat <- srdta[1:n]
-
-eff <- groupedSurv(x=c(GenABELdat@gtdata@snpnames[1:200]), Z=Z,
-                   GenABEL.data=GenABELdat, alpha=thetaest$alpha, theta=thetaest$theta,
+snpsToTest <- GenABELdat@gtdata@snpnames[1:200]
+eff <- groupedSurv(x=snpsToTest, Z=Z, GenABEL.data=GenABELdat, 
+                   alpha=thetaest$alpha, theta=thetaest$theta,
                    gtime=gtime, delta=delta, beta=0, nCores=1)
 @
-Or, genotype dosage data can be imported from a VCF file using the \texttt{BEDMatrix} package (after converting to a .bed file using PLINK~\cite{plink}).
-Genotype dosage data can also be directly extracted from VCF file using \texttt{readVcf} and \texttt{assay} pacakge~\cite{VariantAnnotation}.
+Genotype data can be imported from binary PLINK~\cite{plink} file using the \texttt{BEDMatrix} package.
 <<bedtoSNPmatrix, eval=FALSE>>=
 library(BEDMatrix)
 path <- system.file("extdata", "example.bed", package = "BEDMatrix")
 m <- BEDMatrix(path)
 # Extract genotypes for the specified variants
-g <- m[, c("snp0_A", "snp1_C", "snp2_G")]
-
+xPLINK <- m[, c("snp0_A", "snp1_C", "snp2_G")]
+@
+Or, genotype dosage data can also be directly extracted from a VCF file using the \texttt{VariantAnnotation} package~\cite{VariantAnnotation}.
+<<VCFtoSNPmatrix, eval=FALSE>>=
 system("wget ftp://share.sph.umich.edu/minimac3/DosageConvertor/DosageConvertor.v1.0.4.tar.gz")
 system("tar -xzvf DosageConvertor.v1.0.4.tar.gz")
 library(VariantAnnotation)
 exampleVcfFile <- "./DosageConvertor/test/TestDataImputedVCF.dose.vcf.gz"
 myvcf <- readVcf(exampleVcfFile, "hg19")
 dosedat <- assay(myvcf,"DS")
-rownames(dosedat) <- paste0("NA_",1:nrow(dosedat))
-g <- dosedat
+xVCF <- t(dosedat)
 @
 \end{frame}
 
@@ -309,6 +313,7 @@ g <- dosedat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % example for genestat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analysis of gene sets}
 \begin{frame}[fragile]{Analysis of gene sets}
 \scriptsize
 Specify SNP and gene information:
@@ -471,12 +476,19 @@ betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
   \emph{American Journal of Human Genetics}, 
   81.
 
-\bibitem{vcfR}
-  Knaus, BJ., Gr{\"u}nwald, NJ 
-  (20017).
-  VCFR: a package to manipulate and visualize variant call format data in T
-  \emph{Molecular Ecology Resources}, 
-  17:44-53.
+\bibitem{VariantAnnotation}
+  Obenchain, V, Lawrence, M, Carey, V, Gogarten, S, Shannon, P, and Morgan, M 
+  (20014).
+  VariantAnnotation: a Bioconductor package for exploration and annotation of genetic variants
+  \emph{Bioinformatics}, 
+  30(14):2076-2078.
+  
+% \bibitem{vcfR}
+%   Knaus, BJ., Gr{\"u}nwald, NJ 
+%   (20017).
+%   VCFR: a package to manipulate and visualize variant call format data in T
+%   \emph{Molecular Ecology Resources}, 
+%   17:44-53.
 % \setbeamertemplate{bibliography item}[triangle]
 \end{thebibliography}
 

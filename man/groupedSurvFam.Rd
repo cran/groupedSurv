@@ -21,7 +21,7 @@
 }
 
 \arguments{
-  \item{x}{Vector or matrix of numeric variables of interest for each sample.}
+  \item{x}{Vector or \code{matrix} of numeric variables of interest for each sample.}
   \item{fam_group}{Vector of family IDs for each sample.}
   \item{fam_role}{Vector of indicators for the role within a family of each sample, i.e., \{"Offspring","Mother","Father"\}, or \{"o","m","f"\}.}
   \item{alpha}{Vector of baseline survival rates for each time interval.}

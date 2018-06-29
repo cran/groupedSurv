@@ -75,7 +75,7 @@ thetaest
 
 ## ----expa2, eval=TRUE---------------------------------------------------------
 eff <- groupedSurv(x=xMore, Z=Z,  alpha=thetaest$alpha, theta=thetaest$theta, 
-                gtime=gtime, delta=delta, beta=0, nCores=1)
+                   gtime=gtime, delta=delta, beta=0, nCores=1)
 head(eff)
 
 ## ----expa4, eval=TRUE---------------------------------------------------------
@@ -87,9 +87,9 @@ betaest
 #  library(GenABEL)
 #  data(srdta)
 #  GenABELdat <- srdta[1:n]
-#  
-#  eff <- groupedSurv(x=c(GenABELdat@gtdata@snpnames[1:200]), Z=Z,
-#                     GenABEL.data=GenABELdat, alpha=thetaest$alpha, theta=thetaest$theta,
+#  snpsToTest <- GenABELdat@gtdata@snpnames[1:200]
+#  eff <- groupedSurv(x=snpsToTest, Z=Z, GenABEL.data=GenABELdat,
+#                     alpha=thetaest$alpha, theta=thetaest$theta,
 #                     gtime=gtime, delta=delta, beta=0, nCores=1)
 
 ## ----bedtoSNPmatrix, eval=FALSE-----------------------------------------------
@@ -97,16 +97,16 @@ betaest
 #  path <- system.file("extdata", "example.bed", package = "BEDMatrix")
 #  m <- BEDMatrix(path)
 #  # Extract genotypes for the specified variants
-#  g <- m[, c("snp0_A", "snp1_C", "snp2_G")]
-#  
+#  xPLINK <- m[, c("snp0_A", "snp1_C", "snp2_G")]
+
+## ----VCFtoSNPmatrix, eval=FALSE-----------------------------------------------
 #  system("wget ftp://share.sph.umich.edu/minimac3/DosageConvertor/DosageConvertor.v1.0.4.tar.gz")
 #  system("tar -xzvf DosageConvertor.v1.0.4.tar.gz")
 #  library(VariantAnnotation)
 #  exampleVcfFile <- "./DosageConvertor/test/TestDataImputedVCF.dose.vcf.gz"
 #  myvcf <- readVcf(exampleVcfFile, "hg19")
 #  dosedat <- assay(myvcf,"DS")
-#  rownames(dosedat) <- paste0("NA_",1:nrow(dosedat))
-#  g <- dosedat
+#  xVCF <- t(dosedat)
 
 ## ----geneStat3, eval=TRUE-----------------------------------------------------
 geneInfo <- data.frame(gene=c("BRCA1","BRCA2"), chr=c(17,13),

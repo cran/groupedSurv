@@ -4,7 +4,7 @@
   Compute Gene-Level Statistics Based on Efficient Score Statistics for the Grouped Survival Model
 }
 \description{
-  A method to compute gene-level statistics using the contributions of individual samples to the efficient score statistics of SNPs under a grouped survival model. The function supports zero, single, or multiple covariates as dictated by the input data. The function can take either a \code{gwaa.data} object or standard \code{data.frame}s as input. The contribution of each sample to the efficient score will be computed separately for each SNP being tested, and then gene-level statistics will be computed using either the default Sequence Kernel Association Test (SKAT) or a user-provided function.
+  A method to compute gene-level statistics using the contributions of individual samples to the efficient score statistics of SNPs under a grouped survival model. The function supports zero, single, or multiple covariates as dictated by the input data. The function can take either a \code{gwaa.data} object or a standard \code{data.frame} or \code{matrix} as input. The contribution of each sample to the efficient score will be computed separately for each SNP being tested, and then gene-level statistics will be computed using either the default Sequence Kernel Association Test (SKAT) or a user-provided function.
 }
 
 \usage{

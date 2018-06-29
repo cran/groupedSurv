@@ -12,8 +12,8 @@ License: GPL (>= 2)}
 \tabular{ll}{
 Package: \tab groupedSurv\cr
 Type: \tab Package\cr
-Version: \tab 1.0.2\cr
-Date: \tab 2018-06-20\cr
+Version: \tab 1.0.3\cr
+Date: \tab 2018-06-28\cr
 License: \tab GPL-3\cr
 }
 Please refer to the individual function documentation or the included vignette for more information. The package vignette serves as a tutorial for using this package.

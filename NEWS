@@ -1,11 +1,15 @@
-version v 1.0.2 (Release date: 2018-06-20 
-========= 
-* Add matrix support for input
-* Add more examples for import data from different format in vignettes
-* Fixed warning from GenABEL in vignette file
+groupedSurv v1.0.3 (Release date: 2018-06-28)
+==================
+* Revised package documentation and vignette
 
-version v 1.0.1 (Release date: 2018-05-15 
-========= 
+groupedSurv v1.0.2 (Release date: 2018-06-20)
+==================
+* Added support for matrix input
+* Added more examples of importing data from different sources to vignette
+* Fixed warning from GenABEL in vignette
+
+groupedSurv v1.0.1 (Release date: 2018-05-15)
+==================
 * Fixed bugs causing errors on mac OSX and clang compiler
-* Revise package description
+* Revised package description
 

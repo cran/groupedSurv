@@ -12,7 +12,7 @@
 }
 
 \arguments{
-  \item{U}{Matrix of contributions of each family to the efficient score statistics of each variable of interest, (i.e., the output from \code{groupedSurvFam}).}
+  \item{U}{\code{Matrix} of contributions of each family to the efficient score statistics of each variable of interest, (i.e., the output from \code{groupedSurvFam}).}
 }
 
 \value{
