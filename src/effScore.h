@@ -103,7 +103,7 @@ static double effScore_NF_S(double beta,
     Etheta_theta += Sthetai.row(i).transpose()*Sthetai.row(i);
   Etheta_theta = Etheta_theta/n;
   //cout << "Etheta_theta:\n" << Etheta_theta <<endl;
- 
+  // Here we are taking average before we make the inverse of the information matrix. 
   // put Efficent score together
   Eigen::MatrixXd Var(params.size(), params.size());
   Var.fill(0);

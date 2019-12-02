@@ -42,7 +42,7 @@ stdt<-date()
 	\title{\pkgname}
 	\subtitle{Efficient Estimation of Grouped Survival Models Using the
 	Exact Likelihood Function}
-	\date{2018-06-28}
+	\date{2019-07-18}
 	\titlepage
 \end{frame}
 
@@ -261,13 +261,13 @@ thetaest
 \begin{frame}[fragile]{Examples of \texttt{groupedSurv} and \texttt{betaEst}}
 \scriptsize
 Compute the efficient score under the null hypothesis based on the estimated $\theta$ :\\
-<<expa2, eval=TRUE>>=
+<<expa2, eval=FALSE>>=
 eff <- groupedSurv(x=xMore, Z=Z,  alpha=thetaest$alpha, theta=thetaest$theta, 
                    gtime=gtime, delta=delta, beta=0, nCores=1)
 head(eff)
 @
 One may wish to estimate $\beta$ for variables of interest found to be associated with the outcome:\\
-<<expa4, eval=TRUE>>=
+<<expa4, eval=FALSE>>=
 betaest <- betaEst(x=x, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta, 
                    gtime=gtime, delta=delta)
 betaest
@@ -326,13 +326,13 @@ snpInfo <- data.frame(chr=c(17,17,13,13), pos=c(41211653,41213996,32890026,32890
                       stringsAsFactors=FALSE)
 @
 Use \texttt{snplist} package to create gene sets:
-<<snplist, eval=TRUE,  results='hide'>>=
+<<snplist, eval=FALSE,  results='hide'>>=
 library(snplist)
 setGeneTable(geneInfo)
 setSNPTable(snpInfo)
 geneset <- makeGeneSet()
 @
-<<geneset, eval=TRUE>>=
+<<geneset, eval=FALSE>>=
 geneset
 @
 \end{frame}
@@ -346,19 +346,19 @@ geneset
 \begin{frame}[fragile]{Simulate SNP data and compute statistics}
 \scriptsize
 Simulate genotyping data:
-<<geneStat4, eval=TRUE>>=
+<<geneStat4, eval=FALSE>>=
 G <- matrix(rbinom(n*nrow(snpInfo), 2, 0.5), ncol=nrow(snpInfo))
 colnames(G) <- snpInfo$rsid
 @
 SNPs can be weighted within gene sets. Generate dummy weights and append them:
-<<geneStat5, eval=TRUE>>=
+<<geneStat5, eval=FALSE>>=
 for(i in seq_len(length(geneset))){
   weight <- rep(1, length(geneset[[i]]))
   geneset[[i]] <- list(geneset[[i]], weight)
 }
 @
 Compute SKAT statistics for each gene set:
-<<geneStat, eval=TRUE>>=
+<<geneStat, eval=FALSE>>=
 res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta, 
                 gtime=gtime, delta=delta, geneSet=geneset)
 res$stat

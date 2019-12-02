@@ -93,7 +93,7 @@ alpha <- thetaEst(Z, gtime,delta)$alpha
 var <- 0.2
 
 # compute efficient score statistics
-res   <- groupedSurvFam(x, fam_group, fam_role, alpha, var, gtime, delta) 
-res
+#res   <- groupedSurvFam(x, fam_group, fam_role, alpha, var, gtime, delta) 
+#res
 }
 

@@ -79,7 +79,7 @@ static VectorXd deltaifrac(const VectorXd &gammavecNI, const VectorXd &xitheta,
 // delta_i * fraction of exp()s for Eff score
 inline VectorXd deltaifrac_EF(const VectorXd &gammavecNI, const VectorXd &gib, const VectorXd &xitheta,
                            const VectorXd &kivec, const VectorXd &deltavec) {
-  double inf = std::numeric_limits<double>::infinity();
+  long long inf = std::numeric_limits<long>::infinity();
     // add INFINITY as the last element of gammavec
   Eigen::VectorXd gammavec(gammavecNI.size() + 1);
   gammavec << gammavecNI;
@@ -129,7 +129,7 @@ inline Eigen::MatrixXd sumKim1mat_EF(const VectorXd &gammavec,const VectorXd &gi
   Eigen::VectorXd kim1(kivec.size());
   kim1.fill(-1);
   kim1 = kim1 + kivec;
-  double inf = std::numeric_limits<double>::infinity();
+  long long inf = std::numeric_limits<long>::infinity();
   for (int i = 0; i < kivec.size(); i++)
   {
     if(kivec(i) == inf && deltavec(i) == 0) // adjust for c++ index from zero

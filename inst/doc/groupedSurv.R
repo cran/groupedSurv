@@ -1,4 +1,4 @@
-## ----setup1, include=FALSE, echo=FALSE-----------------------------------
+## ----setup1, include=FALSE, echo=FALSE----------------------------------------
 require(knitr)
 
 ## ----setup2, include=FALSE,echo=FALSE-----------------------------------------
@@ -73,15 +73,15 @@ library(groupedSurv)
 thetaest <- thetaEst(Z, gtime, delta)
 thetaest
 
-## ----expa2, eval=TRUE---------------------------------------------------------
-eff <- groupedSurv(x=xMore, Z=Z,  alpha=thetaest$alpha, theta=thetaest$theta, 
-                   gtime=gtime, delta=delta, beta=0, nCores=1)
-head(eff)
+## ----expa2, eval=FALSE--------------------------------------------------------
+#  eff <- groupedSurv(x=xMore, Z=Z,  alpha=thetaest$alpha, theta=thetaest$theta,
+#                     gtime=gtime, delta=delta, beta=0, nCores=1)
+#  head(eff)
 
-## ----expa4, eval=TRUE---------------------------------------------------------
-betaest <- betaEst(x=x, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta, 
-                   gtime=gtime, delta=delta)
-betaest
+## ----expa4, eval=FALSE--------------------------------------------------------
+#  betaest <- betaEst(x=x, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
+#                     gtime=gtime, delta=delta)
+#  betaest
 
 ## ----expa3, eval=FALSE, message=FALSE-----------------------------------------
 #  library(GenABEL)
@@ -116,29 +116,29 @@ snpInfo <- data.frame(chr=c(17,17,13,13), pos=c(41211653,41213996,32890026,32890
                       rsid=c("rs8176273","rs8176265","rs9562605","rs1799943"),
                       stringsAsFactors=FALSE)
 
-## ----snplist, eval=TRUE,  results='hide'--------------------------------------
-library(snplist)
-setGeneTable(geneInfo)
-setSNPTable(snpInfo)
-geneset <- makeGeneSet()
+## ----snplist, eval=FALSE,  results='hide'-------------------------------------
+#  library(snplist)
+#  setGeneTable(geneInfo)
+#  setSNPTable(snpInfo)
+#  geneset <- makeGeneSet()
 
-## ----geneset, eval=TRUE-------------------------------------------------------
-geneset
+## ----geneset, eval=FALSE------------------------------------------------------
+#  geneset
 
-## ----geneStat4, eval=TRUE-----------------------------------------------------
-G <- matrix(rbinom(n*nrow(snpInfo), 2, 0.5), ncol=nrow(snpInfo))
-colnames(G) <- snpInfo$rsid
+## ----geneStat4, eval=FALSE----------------------------------------------------
+#  G <- matrix(rbinom(n*nrow(snpInfo), 2, 0.5), ncol=nrow(snpInfo))
+#  colnames(G) <- snpInfo$rsid
 
-## ----geneStat5, eval=TRUE-----------------------------------------------------
-for(i in seq_len(length(geneset))){
-  weight <- rep(1, length(geneset[[i]]))
-  geneset[[i]] <- list(geneset[[i]], weight)
-}
+## ----geneStat5, eval=FALSE----------------------------------------------------
+#  for(i in seq_len(length(geneset))){
+#    weight <- rep(1, length(geneset[[i]]))
+#    geneset[[i]] <- list(geneset[[i]], weight)
+#  }
 
-## ----geneStat, eval=TRUE------------------------------------------------------
-res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta, 
-                gtime=gtime, delta=delta, geneSet=geneset)
-res$stat
+## ----geneStat, eval=FALSE-----------------------------------------------------
+#  res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
+#                  gtime=gtime, delta=delta, geneSet=geneset)
+#  res$stat
 
 ## ----inputPara3---------------------------------------------------------------
 rm(list=ls())

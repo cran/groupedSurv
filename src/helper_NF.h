@@ -20,7 +20,7 @@ inline Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
   Eigen::VectorXd kim1(kivec.size());
   kim1.fill(-1);
   kim1 = kim1 + kivec;
-  long inf = std::numeric_limits<long>::max();
+  long inf = std::numeric_limits<long>::infinity();
 
   for (int i = 0; i < kivec.size(); i++)
   {

@@ -91,26 +91,26 @@ snpInfo <- data.frame(chr=c(17,17,13,13),
                       stringsAsFactors=FALSE)
 
 # use snplist package to create gene sets
-library(snplist)
-setGeneTable(geneInfo)
-setSNPTable(snpInfo)
-geneset <- makeGeneSet()
+#library(snplist)
+#setGeneTable(geneInfo)
+#setSNPTable(snpInfo)
+#geneset <- makeGeneSet()
 
 # simulate sample values for SNPs
-G <- matrix(rbinom(n*nrow(snpInfo), 2, 0.5), ncol=nrow(snpInfo))
-colnames(G) <- snpInfo$rsid
+#G <- matrix(rbinom(n*nrow(snpInfo), 2, 0.5), ncol=nrow(snpInfo))
+#colnames(G) <- snpInfo$rsid
 
 # dummy weights for the SNPs in the gene sets
-for(i in seq_len(length(geneset))){
-    weight <- rep(1, length(geneset[[i]]))
-    geneset[[i]] <- list(geneset[[i]], weight)
+#for(i in seq_len(length(geneset))){
+#    weight <- rep(1, length(geneset[[i]]))
+#    geneset[[i]] <- list(geneset[[i]], weight)
 
-}
+#}
 
 # compute gene-level statistics based on the default SKAT function
-res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
-                gtime=gtime, delta=delta, geneSet=geneset, beta=0, nCores=1)
-res$stat
+#res <- geneStat(x=G, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
+#                gtime=gtime, delta=delta, geneSet=geneset, beta=0, nCores=1)
+#res$stat
 }
 
 

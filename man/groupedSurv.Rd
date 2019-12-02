@@ -93,8 +93,8 @@ gtime[which(gtime == r)] <- Inf
 thetaest <- thetaEst(Z, gtime, delta)
 
 # compute efficient score statistics
-eff <- groupedSurv(x=xMore, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
-		gtime=gtime, delta=delta, beta=0, nCores=1)
-head(eff)
+# eff <- groupedSurv(x=xMore, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,
+#		gtime=gtime, delta=delta, beta=0, nCores=1)
+# head(eff)
 }
 
