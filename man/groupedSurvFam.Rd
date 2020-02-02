@@ -89,8 +89,8 @@ fam_role <- rep(c("o","f","m"),m)
 fam_group <- as.character(rep(1:m,rep(3,m)))
 
 # nuisance parameters
-alpha <- thetaEst(Z, gtime,delta)$alpha
-var <- 0.2
+#alpha <- thetaEst(Z, gtime,delta)$alpha
+#var <- 0.2
 
 # compute efficient score statistics
 #res   <- groupedSurvFam(x, fam_group, fam_role, alpha, var, gtime, delta) 

@@ -32,7 +32,7 @@ Z     <- cbind(cov1, cov2)
 gtime <- c(1, 3, 3, 2, 1, 1, 2, 3, 1)
 delta <- c(1, 0, 1, 1, 1, 0, 1, 0, 1)
 
-res   <- thetaEst(Z, gtime, delta) 
-res
+#res   <- thetaEst(Z, gtime, delta) 
+#res
 }
 

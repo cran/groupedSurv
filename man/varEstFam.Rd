@@ -41,7 +41,7 @@ lower <- 0
 upper <- 2
 beta  <- 1
 
-res   <- varEstFam(x, fam_group, fam_role, alpha, gtime, delta, lower, upper, beta) 
-res
+#res   <- varEstFam(x, fam_group, fam_role, alpha, gtime, delta, lower, upper, beta) 
+#res
 }
 

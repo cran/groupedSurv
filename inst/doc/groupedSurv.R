@@ -69,9 +69,9 @@ table(gtime, delta)
 ## ----loadpkg,eval=TRUE--------------------------------------------------------
 library(groupedSurv)
 
-## ----expa1,eval=TRUE----------------------------------------------------------
-thetaest <- thetaEst(Z, gtime, delta)
-thetaest
+## ----expa1,eval=FALSE---------------------------------------------------------
+#  thetaest <- thetaEst(Z, gtime, delta)
+#  thetaest
 
 ## ----expa2, eval=FALSE--------------------------------------------------------
 #  eff <- groupedSurv(x=xMore, Z=Z,  alpha=thetaest$alpha, theta=thetaest$theta,
@@ -162,23 +162,23 @@ g <- rbinom(m*3, 2, 0.1)
 upper  <- 2
 lower  <- 0
 
-## ----expa---------------------------------------------------------------------
-alphaest <- alphaEstFam(gtimes, deltas)
-alphaest
+## ----expa, eval=FALSE---------------------------------------------------------
+#  alphaest <- alphaEstFam(gtimes, deltas)
+#  alphaest
 
-## ----expv---------------------------------------------------------------------
-varest <- varEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest, 
-                    gtime=gtimes, delta=deltas, lower, upper, beta=0)
-varest
+## ----expv, eval=FALSE---------------------------------------------------------
+#  varest <- varEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
+#                      gtime=gtimes, delta=deltas, lower, upper, beta=0)
+#  varest
 
-## ----effscore3----------------------------------------------------------------
-effFam <- groupedSurvFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest, 
-                      var=varest, gtime=gtimes, delta=deltas, beta=0)
-PvalueFam(effFam)
+## ----effscore3, eval=FALSE----------------------------------------------------
+#  effFam <- groupedSurvFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
+#                        var=varest, gtime=gtimes, delta=deltas, beta=0)
+#  PvalueFam(effFam)
 
-## ----expb2--------------------------------------------------------------------
-betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest, 
-           var=varest, gtime=gtimes, delta=deltas, lower, upper)
+## ----expb2, eval=FALSE--------------------------------------------------------
+#  betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
+#             var=varest, gtime=gtimes, delta=deltas, lower, upper)
 
 ## ----sessinfo, echo=FALSE, include=TRUE, results='asis'-----------------------
 toLatex(sessionInfo(), locale=FALSE)

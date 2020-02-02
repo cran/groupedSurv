@@ -41,7 +41,7 @@ delta <- c(1, 0, 1, 1, 1, 0, 1, 0, 1)
 lower <- 0
 upper <- 2
 
-res   <- betaEstFam(x, fam_group, fam_role, alpha, var, gtime, delta, lower, upper) 
-res
+#res   <- betaEstFam(x, fam_group, fam_role, alpha, var, gtime, delta, lower, upper) 
+#res
 }
 

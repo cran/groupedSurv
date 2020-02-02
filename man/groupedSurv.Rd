@@ -90,7 +90,7 @@ delta <- as.numeric(delta)
 gtime[which(gtime == r)] <- Inf
 
 # estimate nuisance parameters
-thetaest <- thetaEst(Z, gtime, delta)
+#thetaest <- thetaEst(Z, gtime, delta)
 
 # compute efficient score statistics
 # eff <- groupedSurv(x=xMore, Z=Z, alpha=thetaest$alpha, theta=thetaest$theta,

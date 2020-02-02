@@ -30,7 +30,7 @@
 # Generate dummy data	
 U <- matrix(rnorm(10000), ncol=50)
 
-res   <- PvalueFam(U) 
-res
+#res   <- PvalueFam(U) 
+#res
 }
 

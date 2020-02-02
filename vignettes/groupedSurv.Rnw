@@ -42,7 +42,7 @@ stdt<-date()
 	\title{\pkgname}
 	\subtitle{Efficient Estimation of Grouped Survival Models Using the
 	Exact Likelihood Function}
-	\date{2019-07-18}
+	\date{2020-01-31}
 	\titlepage
 \end{frame}
 
@@ -249,7 +249,7 @@ library(groupedSurv)
 % example for thetaEst
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Estimate $\theta$ (including baseline survival rate for each time interval and the covariate parameters) under the null hypothesis ($\beta = 0$):\\
-<<expa1,eval=TRUE>>=
+<<expa1,eval=FALSE>>=
 thetaest <- thetaEst(Z, gtime, delta)
 thetaest
 @
@@ -401,12 +401,12 @@ lower  <- 0
 \begin{frame}[fragile]{Examples of \texttt{alphaEstFam} and \texttt{varEstFam}}
 \scriptsize
 Estimate baseline survival rates (always under the null hypothesis):
-<<expa>>=
+<<expa, eval=FALSE>>=
 alphaest <- alphaEstFam(gtimes, deltas)
 alphaest
 @
 Estimate variance under the null by setting \texttt{beta=0}:
-<<expv>>=
+<<expv, eval=FALSE>>=
 varest <- varEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest, 
                     gtime=gtimes, delta=deltas, lower, upper, beta=0)
 varest
@@ -416,13 +416,13 @@ varest
 \begin{frame}[fragile]{Examples of \texttt{groupedSurvFam}, \texttt{PvalueFam}, and \texttt{betaEstFam}}
 \scriptsize
 Compute the efficient score under the null by setting \texttt{beta=0}, and compute the associated p-values:
-<<effscore3>>=
+<<effscore3, eval=FALSE>>=
 effFam <- groupedSurvFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest, 
                       var=varest, gtime=gtimes, delta=deltas, beta=0)
 PvalueFam(effFam)
 @
 Estimate $\beta$:
-<<expb2>>=
+<<expb2, eval=FALSE>>=
 betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest, 
            var=varest, gtime=gtimes, delta=deltas, lower, upper)
 @

@@ -79,16 +79,16 @@ delta <- as.numeric(delta)
 gtime[which(gtime == r)] <- Inf
 
 # estimate nuisance parameters
-thetaest <- thetaEst(Z, gtime, delta)
+#thetaest <- thetaEst(Z, gtime, delta)
 
 # SNP and gene information
-geneInfo <- data.frame(gene=c("BRCA1","BRCA2"), chr=c(17,13),
-                       start=c(41196312, 32889611), end=c(41277500, 32973805),
-                       stringsAsFactors=FALSE)
-snpInfo <- data.frame(chr=c(17,17,13,13),
-                      pos=c(41211653,41213996,32890026,32890572),
-                      rsid=c("rs8176273","rs8176265","rs9562605","rs1799943"),
-                      stringsAsFactors=FALSE)
+#geneInfo <- data.frame(gene=c("BRCA1","BRCA2"), chr=c(17,13),
+#                       start=c(41196312, 32889611), end=c(41277500, 32973805),
+#                       stringsAsFactors=FALSE)
+#snpInfo <- data.frame(chr=c(17,17,13,13),
+#                      pos=c(41211653,41213996,32890026,32890572),
+#                      rsid=c("rs8176273","rs8176265","rs9562605","rs1799943"),
+#                      stringsAsFactors=FALSE)
 
 # use snplist package to create gene sets
 #library(snplist)

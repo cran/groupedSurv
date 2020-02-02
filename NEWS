@@ -1,3 +1,7 @@
+groupedSurv v1.0.4.1 (Release date: 2020-01-31)
+==================
+* Remove depended orphoned packages.
+
 groupedSurv v1.0.4 (Release date: 2019-12-02)
 ==================
 * Add citation for the package and fixed bugs 
