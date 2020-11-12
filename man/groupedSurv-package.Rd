@@ -2,7 +2,7 @@
 \alias{groupedSurv-package}
 \docType{package}
 \title{
-	Efficient Estimation of Grouped Survival Models Using the Exact Likelihood Function
+	Efficient Estimation of Grouped Survival Models
 }
 \description{
 These \code{Rcpp}-based functions compute the efficient score statistics for grouped time-to-event data (Prentice and Gloeckler, 1978), with the optional inclusion of baseline covariates. Functions for estimating the parameter of interest and nuisance parameters, including baseline hazards, using maximum likelihood are also provided. A parallel set of functions allow for the incorporation of family structure of related individuals (e.g., trios). Note that the current implementation of the frailty model (Ripatti and Palmgren, 2000) is sensitive to departures from model assumptions, and should be considered experimental. For these data, the exact proportional-hazards-model-based likelihood is computed by evaluating multiple variable integration. The integration is accomplished using the \code{Cuhre} algorithm from the \code{Cuba} library (Hahn, 2005), and the source files of the \code{Cuhre} function are included in this package. The maximization process is carried out using Brent's algorithm, with the \code{C++} code file from John Burkardt and John Denker (Brent, 2002). 
@@ -12,8 +12,8 @@ License: GPL (>= 2)}
 \tabular{ll}{
 Package: \tab groupedSurv\cr
 Type: \tab Package\cr
-Version: \tab 1.0.4.1\cr
-Date: \tab 2020-01-20\cr
+Version: \tab 1.0.4.2\cr
+Date: \tab 2020-11-11\cr
 License: \tab GPL-3\cr
 }
 Please refer to the individual function documentation or the included vignette for more information. The package vignette serves as a tutorial for using this package.
