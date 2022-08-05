@@ -20,15 +20,15 @@ using namespace Rcpp;
 
 //[[Rcpp::export]]
 List effScore(double beta, Rcpp::NumericVector Params, Rcpp::NumericMatrix G,
-                  Rcpp::NumericMatrix Xmatrix, Rcpp::NumericVector Kivec, 
+                  Rcpp::NumericMatrix Xmatrix, Rcpp::IntegerVector Kivec, 
                   Rcpp::NumericVector Deltavec, int ntps, int nCores, bool reScore) {
   // cast Rcpp Vector and Matrix to Eigen Vector and Matrix
   Eigen::Map<Eigen::VectorXd> params = 
       as<Eigen::Map<Eigen::VectorXd>>(Params);
   Eigen::Map<Eigen::MatrixXd> xmatrix =
       as<Eigen::Map<Eigen::MatrixXd>>(Xmatrix);
-  Eigen::Map<Eigen::VectorXd> kivec = 
-      as<Eigen::Map<Eigen::VectorXd>>(Kivec);
+  Eigen::Map<Eigen::VectorXi> kivec = 
+      as<Eigen::Map<Eigen::VectorXi>>(Kivec);
   Eigen::Map<Eigen::VectorXd> deltavec =
       as<Eigen::Map<Eigen::VectorXd>>(Deltavec);
   Eigen::Map<Eigen::MatrixXd> g =

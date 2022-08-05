@@ -1,21 +1,36 @@
-# function to estimate thetas for the covarate
-
+# function to estimate thetas for the covariate
 .grad_NF <- function(Params, Xmatrix, Kivec, Deltavec, ntps) {
-  .Call("_groupedSurv_grad_NF", PACKAGE = "groupedSurv", Params, Xmatrix, Kivec, 
-    Deltavec, ntps)
+  .Call(
+    "_groupedSurv_grad_NF", 
+    PACKAGE = "groupedSurv", 
+    Params, 
+    Xmatrix, 
+    Kivec, 
+    Deltavec, 
+    ntps
+  )
 }
 
 .logLike_NF <- function(Params, Xmatrix, Kivec, Deltavec, ntps) {
-  .Call("_groupedSurv_logLike_NF", PACKAGE = "groupedSurv", Params, Xmatrix, Kivec, 
-    Deltavec, ntps)
+  .Call(
+    "_groupedSurv_logLike_NF", 
+    PACKAGE = "groupedSurv", 
+    Params, 
+    Xmatrix, 
+    Kivec, 
+    Deltavec, 
+    ntps
+  )
 }
 
 thetaEst <- function(Z=NULL, gtime, delta, method="BFGS")
 {
-  if(sum(is.infinite(gtime)) >= 1)
-     ntps <- nlevels(as.factor(gtime)) - 1
-  else
-     ntps <- nlevels(as.factor(gtime))
+  
+  if (sum(is.infinite(gtime)) >= 1) {
+    ntps <- nlevels(as.factor(gtime)) - 1
+  } else {
+    ntps <- nlevels(as.factor(gtime))
+  }
 
 	alphaIG <- runif(ntps, 0, 1)
   # alphaIG <- alphaEstFam(Dtime, Event) +0.0000000000000000005
@@ -23,9 +38,24 @@ thetaEst <- function(Z=NULL, gtime, delta, method="BFGS")
   # cat('thetaTG: ', thetaIG, '\n')
   ThetaIG <- c(alphaIG, thetaIG)
 
-  Z <- as.matrix(Z,ncol=ncol(Z))
-  Est <- optim(par = ThetaIG, fn = .logLike_NF, gr = .grad_NF, Xmatrix = Z, Kivec = gtime, 
-    Deltavec = delta, ntps = ntps, method = method, control = list(fnscale = -1))$par
+  Z <- as.matrix(Z, ncol=ncol(Z))
+  
+  # convert gtime to vector of integers
+  ktime <- as.numeric(factor(gtime)) 
+  
+  Est <- optim(
+    par = ThetaIG, 
+    fn = .logLike_NF, 
+    gr = .grad_NF, 
+    Xmatrix = Z, 
+    Kivec = ktime, 
+    Deltavec = delta, 
+    ntps = ntps, 
+    method = method, 
+    control = list(
+      fnscale = -1)
+  )$par
+  
   ## testing other methods for optim Est <- optim(par = ThetaIG, fn = .logLike_NF,
   ## gr = .grad_NF, Xmatrix = Z, Kivec = Dtime, Deltavec = Event, ntps = ntps,
   ## method = 'CG', control = list(fnscale = -1))$par
@@ -36,20 +66,4 @@ thetaEst <- function(Z=NULL, gtime, delta, method="BFGS")
   
   thetaest
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

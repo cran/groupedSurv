@@ -17,14 +17,14 @@ using namespace Rcpp;
 //[[Rcpp::export]]
 Rcpp::NumericVector grad_NF(Rcpp::NumericVector Params,
                             Rcpp::NumericMatrix Xmatrix,
-                            Rcpp::NumericVector Kivec,
+                            Rcpp::IntegerVector Kivec,
                             Rcpp::NumericVector Deltavec, int ntps) {
   // map Rcpp Vector and Matrix to Eigen Vector and Matrix
   // without using extra memory
   Eigen::Map<Eigen::VectorXd> params = as<Eigen::Map<Eigen::VectorXd>>(Params);
   Eigen::Map<Eigen::MatrixXd> xmatrix =
       as<Eigen::Map<Eigen::MatrixXd>>(Xmatrix);
-  Eigen::Map<Eigen::VectorXd> kivec = as<Eigen::Map<Eigen::VectorXd>>(Kivec);
+  Eigen::Map<Eigen::VectorXi> kivec = as<Eigen::Map<Eigen::VectorXi>>(Kivec);
   Eigen::Map<Eigen::VectorXd> deltavec =
       as<Eigen::Map<Eigen::VectorXd>>(Deltavec);
 

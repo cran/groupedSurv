@@ -10,7 +10,7 @@
 #include <math.h> 
 static double effScore_NF_S(double beta, 
   const VectorXd &params, const VectorXd &g_tmp,
-  const MatrixXd &xmatrix_tmp, const VectorXd &kivec_tmp, 
+  const MatrixXd &xmatrix_tmp, const Eigen::VectorXi &kivec_tmp, 
   const VectorXd &deltavec_tmp, int ntps, bool reScore, VectorXd &USNPs) {
 
   
@@ -20,7 +20,7 @@ static double effScore_NF_S(double beta,
        nanCount++;
   
   Eigen::MatrixXd xmatrix1 = xmatrix_tmp; //(g_tmp.size()-nanCount, xmatrix_tmp.cols());
-  Eigen::VectorXd kivec1 = kivec_tmp;//(g_tmp.size()-nanCount);
+  Eigen::VectorXi kivec1 = kivec_tmp;//(g_tmp.size()-nanCount);
   Eigen::VectorXd deltavec1 = deltavec_tmp;//(g_tmp.size()-nanCount);
   Eigen::VectorXd g1 = g_tmp;//(g_tmp.rows()-nanCount); 
   
@@ -37,7 +37,7 @@ static double effScore_NF_S(double beta,
   }
  
   Eigen::MatrixXd xmatrix = xmatrix1.topRows(g_tmp.size()-nanCount);
-  Eigen::VectorXd kivec = kivec1.head(g_tmp.size()-nanCount);
+  Eigen::VectorXi kivec = kivec1.head(g_tmp.size()-nanCount);
   Eigen::VectorXd deltavec = deltavec1.head(g_tmp.size()-nanCount);
   Eigen::VectorXd g = g1.head(g_tmp.size()-nanCount); 
 
@@ -63,7 +63,7 @@ static double effScore_NF_S(double beta,
   Eigen::MatrixXd Sgammai = summat*-1;
   for(int i = 0; i < n; i++)
     if(kivec(i) - 1 < ntps )
-      Sgammai(i, kivec(i)-1) = dfrac(i);
+      Sgammai(i, kivec(i) - 1) = dfrac(i);
  
   // Partial wrt theta for each pt_i x theta_l
   Eigen::MatrixXd Sthetai = xmatrix;

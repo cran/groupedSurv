@@ -33,7 +33,7 @@ require(knitr)
 
 <<setup2, include=FALSE,echo=FALSE>>=
 library(groupedSurv)
-old_ops <- options(width=80)  # make the printing fit on the page
+options(width=80)  # make the printing fit on the page
 set.seed(1121)     # make the results repeatable
 stdt<-date()
 @
@@ -42,7 +42,7 @@ stdt<-date()
 	\title{\pkgname}
 	\subtitle{Efficient Estimation of Grouped Survival Models Using the
 	Exact Likelihood Function}
-	\date{2020-11-11}
+	\date{2020-01-31}
 	\titlepage
 \end{frame}
 
@@ -374,7 +374,7 @@ res$stat
 \scriptsize
 Generate grouped survival data:
 <<inputPara3>>=
-#rm(list=ls())
+rm(list=ls())
 set.seed(111)
 m <- 10
 
@@ -499,8 +499,6 @@ betaEstFam(x=g, fam_group=fgrp, fam_role=f_ind, alpha=alphaest,
 \scriptsize
 <<sessinfo, echo=FALSE, include=TRUE, results='asis'>>=
 toLatex(sessionInfo(), locale=FALSE)
-## reset options
-options(old_ops)
 @ 
 %<<times, echo=FALSE, include=TRUE>>=
 %print(paste("Start Time",stdt))

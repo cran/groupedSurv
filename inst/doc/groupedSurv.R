@@ -3,7 +3,7 @@ require(knitr)
 
 ## ----setup2, include=FALSE,echo=FALSE-----------------------------------------
 library(groupedSurv)
-old_ops <- options(width=80)  # make the printing fit on the page
+options(width=80)  # make the printing fit on the page
 set.seed(1121)     # make the results repeatable
 stdt<-date()
 
@@ -141,7 +141,7 @@ snpInfo <- data.frame(chr=c(17,17,13,13), pos=c(41211653,41213996,32890026,32890
 #  res$stat
 
 ## ----inputPara3---------------------------------------------------------------
-#rm(list=ls())
+rm(list=ls())
 set.seed(111)
 m <- 10
 
@@ -182,6 +182,4 @@ lower  <- 0
 
 ## ----sessinfo, echo=FALSE, include=TRUE, results='asis'-----------------------
 toLatex(sessionInfo(), locale=FALSE)
-## reset options
-options(old_ops)
 

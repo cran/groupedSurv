@@ -15,9 +15,9 @@
 #include <limits>
 inline Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
                                   const VectorXd &xitheta,
-                                  const VectorXd &kivec, const VectorXd &deltavec) {
+                                  const Eigen::VectorXi &kivec, const VectorXd &deltavec) {
   Eigen::MatrixXd sumterms(xitheta.size(), gammavec.size());
-  Eigen::VectorXd kim1(kivec.size());
+  Eigen::VectorXi kim1(kivec.size());
   kim1.fill(-1);
   kim1 = kim1 + kivec;
   long long inf = std::numeric_limits<long>::max();
@@ -41,7 +41,7 @@ inline Eigen::MatrixXd sumKim1mat(const VectorXd &gammavec,
 
 // delta_i * fraction of exp()s
 inline VectorXd deltaifrac(const VectorXd &gammavecNI, const VectorXd &xitheta,
-                           const VectorXd &kivec, const VectorXd &deltavec) {
+                           const Eigen::VectorXi &kivec, const VectorXd &deltavec) {
   long long inf = std::numeric_limits<long>::max();
   // add INFINITY as the last element of gammavec
   Eigen::VectorXd gammavec(gammavecNI.size() + 1);

@@ -40,7 +40,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // effScore
-List effScore(double beta, Rcpp::NumericVector Params, Rcpp::NumericMatrix G, Rcpp::NumericMatrix Xmatrix, Rcpp::NumericVector Kivec, Rcpp::NumericVector Deltavec, int ntps, int nCores, bool reScore);
+List effScore(double beta, Rcpp::NumericVector Params, Rcpp::NumericMatrix G, Rcpp::NumericMatrix Xmatrix, Rcpp::IntegerVector Kivec, Rcpp::NumericVector Deltavec, int ntps, int nCores, bool reScore);
 RcppExport SEXP _groupedSurv_effScore(SEXP betaSEXP, SEXP ParamsSEXP, SEXP GSEXP, SEXP XmatrixSEXP, SEXP KivecSEXP, SEXP DeltavecSEXP, SEXP ntpsSEXP, SEXP nCoresSEXP, SEXP reScoreSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -49,7 +49,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Params(ParamsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type G(GSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type Xmatrix(XmatrixSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Kivec(KivecSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type Kivec(KivecSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Deltavec(DeltavecSEXP);
     Rcpp::traits::input_parameter< int >::type ntps(ntpsSEXP);
     Rcpp::traits::input_parameter< int >::type nCores(nCoresSEXP);
@@ -78,14 +78,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // grad_NF
-Rcpp::NumericVector grad_NF(Rcpp::NumericVector Params, Rcpp::NumericMatrix Xmatrix, Rcpp::NumericVector Kivec, Rcpp::NumericVector Deltavec, int ntps);
+Rcpp::NumericVector grad_NF(Rcpp::NumericVector Params, Rcpp::NumericMatrix Xmatrix, Rcpp::IntegerVector Kivec, Rcpp::NumericVector Deltavec, int ntps);
 RcppExport SEXP _groupedSurv_grad_NF(SEXP ParamsSEXP, SEXP XmatrixSEXP, SEXP KivecSEXP, SEXP DeltavecSEXP, SEXP ntpsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Params(ParamsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type Xmatrix(XmatrixSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Kivec(KivecSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type Kivec(KivecSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Deltavec(DeltavecSEXP);
     Rcpp::traits::input_parameter< int >::type ntps(ntpsSEXP);
     rcpp_result_gen = Rcpp::wrap(grad_NF(Params, Xmatrix, Kivec, Deltavec, ntps));
@@ -112,14 +112,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // logLike_NF
-double logLike_NF(Rcpp::NumericVector Params, Rcpp::NumericMatrix Xmatrix, Rcpp::NumericVector Kivec, Rcpp::NumericVector Deltavec, int ntps);
+double logLike_NF(Rcpp::NumericVector Params, Rcpp::NumericMatrix Xmatrix, Rcpp::IntegerVector Kivec, Rcpp::NumericVector Deltavec, int ntps);
 RcppExport SEXP _groupedSurv_logLike_NF(SEXP ParamsSEXP, SEXP XmatrixSEXP, SEXP KivecSEXP, SEXP DeltavecSEXP, SEXP ntpsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Params(ParamsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type Xmatrix(XmatrixSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Kivec(KivecSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type Kivec(KivecSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Deltavec(DeltavecSEXP);
     Rcpp::traits::input_parameter< int >::type ntps(ntpsSEXP);
     rcpp_result_gen = Rcpp::wrap(logLike_NF(Params, Xmatrix, Kivec, Deltavec, ntps));

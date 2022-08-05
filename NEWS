@@ -1,13 +1,15 @@
-
-groupedSurv v1.0.4.2 (Release date: 2020-11-11)
+groupedSurv v1.0.4.3 (Release date: 2022-08-05)
 ==================
-* Change Maintainer.
-* Reset options() at the end of the vignettes.
-* Shorten the title to "Efficient Estimation of Grouped Survival Models". 
+* Applied patches for RcppEigen and Rcpp
+* Bug fix for converting grouped survival times to interval indices
+
+groupedSurv v1.0.4.2 (Release date: 2020-10-19)
+==================
+* Change Maintainer
 
 groupedSurv v1.0.4.1 (Release date: 2020-01-31)
 ==================
-* Remove depended orphoned packages.
+* Remove dependent orphaned packages
 
 groupedSurv v1.0.4 (Release date: 2019-12-02)
 ==================
