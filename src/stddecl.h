@@ -82,10 +82,11 @@
 #define Extern extern "C"
 #else
 #define Extern extern
-typedef enum { false, true } bool;
+/*typedef enum { false, true } bool;*/
 #endif
 
-typedef const bool cbool;
+/* 01-10-2023: changed bool to int */
+typedef const int cbool;
 
 typedef const int cint;
 

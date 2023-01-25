@@ -67,7 +67,8 @@ static inline void DEBRegion(const char *s, cBounds *b)
 }
 */
 
-
+/*
+01/23/2022: comment out this function for version 1.0.5
 static inline void DEBMem(const char *s)
 {
   int kbytes = -1;
@@ -87,3 +88,4 @@ static inline void DEBMem(const char *s)
   DEB("MEM %s: %d kbytes\n", s, kbytes);
 }
 #endif
+*/

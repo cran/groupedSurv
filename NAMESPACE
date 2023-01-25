@@ -1,5 +1,5 @@
 useDynLib(groupedSurv)
-exportPattern("^[[:alpha:]]+")
+export(alphaEstFam, betaEst, betaEstFam, geneStat, groupedSurv, groupedSurvFam, PvalueFam, thetaEst, varEstFam, varLLFam)
 import(doParallel)
 import(foreach)
 import(parallel)

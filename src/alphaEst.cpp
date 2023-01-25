@@ -10,38 +10,37 @@ using namespace std;
 using namespace Rcpp;
 
 //[[Rcpp::export]]
-Rcpp::NumericVector alphaEst1(
-    Rcpp::NumericVector dtimeFactor,
-    Rcpp::NumericVector dtime,
-    Rcpp::NumericVector delta) 
-{
+Rcpp::NumericVector alphaEst1(Rcpp::NumericVector dtimeFactor,
+                              Rcpp::NumericVector dtime,
+                              Rcpp::NumericVector delta) {
   double d = 0;
   double r = 0;
-  
+
   int NPat = dtime.size();
-  
+
   int m = dtimeFactor.size();
   Rcpp::NumericVector alpha(m);
-  
-  for(int j=0; j < m; j++){
+
+  /*
+  01-13-2023: format using clang-format; add braces to for and ifelse blocks
+  */
+  for (int j = 0; j < m; j++) {
     d = 0;
     r = 0;
-    for(int i=0; i < NPat; i++)
-    {
-      if(dtime[i] == dtimeFactor[j] && delta[i] == 1)
+    for (int i = 0; i < NPat; i++) {
+      if (dtime[i] == dtimeFactor[j] && delta[i] == 1) {
         d++;
-      if(dtime[i] > dtimeFactor[j])
-        r++; 	
-    } 
-    if(r+d != 0)	
-      alpha[j] = r/(r+d);
-    else
+      }
+      if (dtime[i] > dtimeFactor[j]) {
+        r++;
+      }
+    }
+    if (r + d != 0) {
+      alpha[j] = r / (r + d);
+    } else {
       alpha[j] = 0;
+    }
   }
-  
-  return alpha; 
+
+  return alpha;
 }
-
-
-
-

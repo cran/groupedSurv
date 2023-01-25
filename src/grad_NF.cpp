@@ -8,8 +8,8 @@
 #include <RcppEigen.h>
 //[[Rcpp::depends(RcppEigen)]]
 
-using Eigen::VectorXd;
 using Eigen::MatrixXd;
+using Eigen::VectorXd;
 using namespace std;
 using namespace Rcpp;
 
@@ -28,7 +28,7 @@ Rcpp::NumericVector grad_NF(Rcpp::NumericVector Params,
   Eigen::Map<Eigen::VectorXd> deltavec =
       as<Eigen::Map<Eigen::VectorXd>>(Deltavec);
 
-	// gammavec
+  // gammavec
   Eigen::VectorXd gammavec = params.head(ntps);
 
   // thetavec
@@ -37,7 +37,7 @@ Rcpp::NumericVector grad_NF(Rcpp::NumericVector Params,
   // xitheta
   Eigen::VectorXd xitheta = xmatrix * thetavec;
 
-	//cout << "grad out" <<endl;
+  // cout << "grad out" <<endl;
   // summat
   Eigen::MatrixXd summat = sumKim1mat(gammavec, xitheta, kivec, deltavec);
 
@@ -47,21 +47,25 @@ Rcpp::NumericVector grad_NF(Rcpp::NumericVector Params,
   // wrt \thea
   Eigen::MatrixXd grad_thetaTemp(xmatrix.rows(), xmatrix.cols());
   Eigen::VectorXd temp = dfrac - summat.rowwise().sum();
-  for (int i = 0; i < xmatrix.rows(); i++)
-    for (int j = 0; j < xmatrix.cols(); j++)
+  /*
+  01-13-2023: format using clang-format; add braces to for and ifelse blocks
+  */
+  for (int i = 0; i < xmatrix.rows(); i++) {
+    for (int j = 0; j < xmatrix.cols(); j++) {
       grad_thetaTemp(i, j) = xmatrix(i, j) * temp(i);
+    }
+  }
   Eigen::VectorXd grad_theta = grad_thetaTemp.colwise().sum();
 
   // wrt \gamma
   Eigen::VectorXd grad_alpha = -summat.colwise().sum();
-  for (int i = 0; i < kivec.size(); i++)
-	{  
-		if(deltavec(i) != 0){
- 			grad_alpha(kivec(i) - 1) =
-      	  grad_alpha(kivec(i) - 1) + dfrac(i); // taken care of ki in C++ and R
+  for (int i = 0; i < kivec.size(); i++) {
+    if (deltavec(i) != 0) {
+      grad_alpha(kivec(i) - 1) =
+          grad_alpha(kivec(i) - 1) + dfrac(i); // taken care of ki in C++ and R
     }
-	}
-	//cout << "grad out" <<endl;
+  }
+  // cout << "grad out" <<endl;
   // concatenate
   Eigen::VectorXd grad_Xd(grad_theta.size() + grad_alpha.size());
   grad_Xd << grad_alpha, grad_theta;

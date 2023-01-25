@@ -25,6 +25,8 @@ static int Integrate(creal epsrel, creal epsabs,
   Pool *cur = NULL, *pool;
   Region *region;
 
+  /*
+  01/23/2023: comment out if block to avoid sprintf invocation
   if( VERBOSE > 1 ) {
     char s[256];
     sprintf(s, "Cuhre input parameters:\n"
@@ -38,7 +40,7 @@ static int Integrate(creal epsrel, creal epsabs,
       key);
 //    Print(s);
   }
-
+  */
 #ifdef MLVERSION
   if( setjmp(abort_) ) goto abort;
 #endif
@@ -90,7 +92,8 @@ static int Integrate(creal epsrel, creal epsabs,
     Result result[NCOMP];
     Region *regionL, *regionR;
     Bounds *bL, *bR;
-
+    /*
+    01/23/2023: comment out if block to avoid sprintf invocation
     if( VERBOSE ) {
       char s[128 + 128*NCOMP], *p = s;
 
@@ -107,7 +110,7 @@ static int Integrate(creal epsrel, creal epsabs,
 
       //Print(s);
     }
-
+    */
     maxratio = -INFTY;
     maxcomp = 0;
     for( comp = 0; comp < ncomp_; ++comp ) {

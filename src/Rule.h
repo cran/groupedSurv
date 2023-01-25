@@ -705,7 +705,8 @@ static void Sample(cRule *rule, void *voidregion, cint flags)
         errcoeff[1]*sum[1] :
         errcoeff[2]*Max(Max(sum[1], sum[2]), sum[3]) );
   }
-
+  /*
+  01/23/2023: comment out if block to avoid sprintf invocation
   if( VERBOSE > 2 ) {
     char s[64*NDIM + 128*NCOMP], *p = s;
 
@@ -725,5 +726,6 @@ static void Sample(cRule *rule, void *voidregion, cint flags)
 
     //Print(s);
   }
+  */
 }
 

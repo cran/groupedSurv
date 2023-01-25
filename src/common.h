@@ -12,20 +12,20 @@
 #include "Rule.h"
 #include "Integrate.h"
 
-
-static inline bool BadDimension(ccount ndim)
+/* 01-10-2023: changed bool to int */
+static inline int BadDimension(ccount ndim)
 {
 #if NDIM > 0
-  if( ndim > NDIM ) return true;
+  if( ndim > NDIM ) return 1;
 #endif
   return ndim < 2;
 }
 
-
-static inline bool BadComponent(cint ncomp)
+/* 01-10-2023: changed bool to int */
+static inline int BadComponent(cint ncomp)
 {
 #if NCOMP > 0
-  if( ncomp > NCOMP ) return true;
+  if( ncomp > NCOMP ) return 1;
 #endif
   return ncomp < 1;
 }

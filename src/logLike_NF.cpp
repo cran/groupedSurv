@@ -8,8 +8,8 @@
 #include <RcppEigen.h>
 //[[Rcpp::depends(RcppEigen)]]
 
-using Eigen::VectorXd;
 using Eigen::MatrixXd;
+using Eigen::VectorXd;
 using namespace std;
 using namespace Rcpp;
 
@@ -37,28 +37,27 @@ double logLike_NF(Rcpp::NumericVector Params, Rcpp::NumericMatrix Xmatrix,
 
   Eigen::VectorXd xitheta = xmatrix * thetavec;
   Eigen::VectorXd gammai(kivec.size());
-  
-	//for (int i = 0; i < kivec.size(); i++)
-	//	gammai(i) = gammavec(kivec(i) - 1); // adjust for c++ index from zero
-  
 
-//  for (int i = 0; i < kivec.size(); i++)
-//	{
-// 		if(kivec(i) == INFINITY && deltavec(i) == 0) // adjust for c++ index from zero
-//				kivec(i) = ntps + 1;
-//  }
-    //cout << "like out" <<endl;
-	Eigen::VectorXd firstterm(deltavec.size());
+  // for (int i = 0; i < kivec.size(); i++)
+  //	gammai(i) = gammavec(kivec(i) - 1); // adjust for c++ index from zero
+
+  //  for (int i = 0; i < kivec.size(); i++)
+  //	{
+  // 		if(kivec(i) == INFINITY && deltavec(i) == 0) // adjust for c++ index
+  // from zero
+  //				kivec(i) = ntps + 1;
+  //  }
+  // cout << "like out" <<endl;
+  Eigen::VectorXd firstterm(deltavec.size());
   for (int i = 0; i < deltavec.size(); i++) {
-    if (deltavec(i) == 1)
-		{
-	 		gammai(i) = gammavec(kivec(i) - 1);			
+    if (deltavec(i) == 1) {
+      gammai(i) = gammavec(kivec(i) - 1);
       firstterm(i) = log(1 - exp(-exp(gammai(i) + xitheta(i))));
-	  }else{  
-			firstterm(i) = 0;
-		}
-    //cout << "like out" <<endl;
-	}
+    } else {
+      firstterm(i) = 0;
+    }
+    // cout << "like out" <<endl;
+  }
   // cout << "gammai: \n" << gammai << endl;
   // cout << "xitheta: \n " << xitheta  << endl;
   // cout << "firstterm:\n" << firstterm <<endl;

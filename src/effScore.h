@@ -11,7 +11,8 @@
 static double effScore_NF_S(double beta, 
   const VectorXd &params, const VectorXd &g_tmp,
   const MatrixXd &xmatrix_tmp, const Eigen::VectorXi &kivec_tmp, 
-  const VectorXd &deltavec_tmp, int ntps, bool reScore, VectorXd &USNPs) {
+  /* 01-10-2023: changed bool to int */
+  const VectorXd &deltavec_tmp, int ntps, int reScore, VectorXd &USNPs) {
 
   
   int nanCount = 0;
