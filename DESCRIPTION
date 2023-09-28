@@ -2,8 +2,8 @@ Package: groupedSurv
 Type: Package
 Title: Efficient Estimation of Grouped Survival Models Using the Exact
         Likelihood Function
-Version: 1.0.5
-Date: 2023-01-24
+Version: 1.0.5.1
+Date: 2023-09-28
 Author: Jiaxing Lin [aut], 
   Alexander Sibley [aut], 
   Tracy Truong [aut], 
@@ -23,6 +23,6 @@ VignetteBuilder: knitr
 BuildVignettes: yes
 NeedsCompilation: yes
 RoxygenNote: 6.0.1
-Packaged: 2023-01-24 18:10:11 UTC; lwr11
+Packaged: 2023-09-28 19:10:36 UTC; lwr11
 Repository: CRAN
-Date/Publication: 2023-01-25 14:20:02 UTC
+Date/Publication: 2023-09-28 20:40:02 UTC

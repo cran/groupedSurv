@@ -1,8 +1,8 @@
   citHeader("To cite groupedSurv in publications, please use:")
   
-  citEntry(entry="article",
+  bibentry(bibtype="Article",
            title = "Efficient estimation of grouped survival models",
-           author = personList( as.person("Zhiguo Li"),
+           author = c( as.person("Zhiguo Li"),
               as.person("Jiaxing Lin"),
               as.person("Alexander B. Sibley"),
               as.person("Tracy Truong"),
